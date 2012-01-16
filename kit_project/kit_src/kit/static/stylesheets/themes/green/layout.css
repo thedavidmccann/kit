@@ -142,8 +142,8 @@ div.clear-hack {
                 display: block;
                 padding: 0 1em;
                 background: #2fa5d1 url("../../../images/themes/green/tab-bg.png") repeat-x;
-                border-right: 1px solid #11bad0;
-                border-left: 1px solid #11bad0;
+                border-right: 1px solid #a9d962;
+                border-left: 1px solid #a9d962;
 
                 /* disable the focus outline on tabs, to avoid a rather
                  * ugly dotted box around tabs while they have focus (we

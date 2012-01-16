@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 from django.contrib import admin
 #from rapidsms_httprouter.urls import urlpatterns as router_urls
-#from rapidsms_xforms.urls import urlpatterns as xform_urls
+from rapidsms_xforms.urls import urlpatterns as xform_urls
 from django.views.generic.simple import direct_to_template
 admin.autodiscover()
 
@@ -26,8 +26,8 @@ urlpatterns = patterns('',
     (r'^locations/', include('rapidsms.contrib.locations.urls')),
     (r'^messaging/', include('rapidsms.contrib.messaging.urls')),
     (r'^scheduler/', include('rapidsms.contrib.scheduler.urls')),
-#    (r'^polls/', include('poll.urls')),
-)
+    (r'^polls/', include('poll.urls')),
+) + xform_urls
 
 if settings.DEBUG:
     urlpatterns += patterns('',

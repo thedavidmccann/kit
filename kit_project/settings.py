@@ -32,15 +32,15 @@ sys.path.append(os.path.join(filedir, 'rapidsms', 'lib'))
 #sys.path.append(os.path.join(filedir, 'rapidsms_auth'))
 #sys.path.append(os.path.join(filedir, 'rapidsms_contact'))
 #sys.path.append(os.path.join(filedir, 'rapidsms_cvs'))
-#sys.path.append(os.path.join(filedir, 'rapidsms_generic'))
+sys.path.append(os.path.join(filedir, 'rapidsms_generic'))
 #sys.path.append(os.path.join(filedir, 'rapidsms_geoserver'))
-#sys.path.append(os.path.join(filedir, 'rapidsms_httprouter_src'))
-#sys.path.append(os.path.join(filedir, 'rapidsms_polls'))
+sys.path.append(os.path.join(filedir, 'rapidsms_httprouter_src'))
+sys.path.append(os.path.join(filedir, 'rapidsms_polls'))
 #sys.path.append(os.path.join(filedir, 'rapidsms_script'))
 #sys.path.append(os.path.join(filedir, 'rapidsms_uregister'))
-#sys.path.append(os.path.join(filedir, 'rapidsms_xforms_src'))
+sys.path.append(os.path.join(filedir, 'rapidsms_xforms_src'))
 #sys.path.append(os.path.join(filedir, 'healthmodels'))
-#sys.path.append(os.path.join(filedir, 'django_eav'))
+sys.path.append(os.path.join(filedir, 'django_eav'))
 #sys.path.append(os.path.join(filedir, 'rapidsms_logistics'))
 #sys.path.append(os.path.join(filedir, 'rapidsms_alerts'))
 #sys.path.append(os.path.join(filedir, 'email_reports_src'))
@@ -122,16 +122,16 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.humanize",
 
-#    "eav",
+    "eav",
 #    "healthmodels",
-#    "rapidsms_xforms",
+    "rapidsms_xforms",
 #    "auth",
-#    "rapidsms_httprouter",
+    "rapidsms_httprouter",
 #    "script",
-#    "poll",
+    "poll",
 #    "cvs",
-#    "generic",
-#    "generic.reporting",
+    "generic",
+    "generic.reporting",
 #    "geoserver",
 #    "uganda_common",
 #    "contact",
@@ -159,13 +159,8 @@ SMS_APPS = [
 # tabbed navigation. when adding an app to INSTALLED_APPS, you may wish
 # to add it here, also, to expose it in the rapidsms ui.
 RAPIDSMS_TABS = [
-#    ('mtrack-mgt-stats', 'Mgt Data'),
-#    ("mtrack-stats", "Health Data"),
-#    ("cvs-map", "Map"),
-#    ("cvs-contact", "Users"),
-#    ("cvs-messagelog", "Messages"),
-#    ("approve", "Approve"),
-    ("rapidsms.contrib.scheduler.views.index", "Event Scheduler"),
+    ("xforms", "Indicators"),
+    ("polls", "Polls"),
 ]
 
 AUTHENTICATED_TABS = [
