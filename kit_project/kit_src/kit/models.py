@@ -5,4 +5,5 @@ class Config(models.Model):
                           help_text=u"Short unique attribute label", primary_key=True)
     value = models.CharField(max_length=100)
 
-
+    def __unicode__(self):
+        return "%s => %s" % (self.slug, self.value)

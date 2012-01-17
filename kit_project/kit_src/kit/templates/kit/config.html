@@ -1,10 +1,27 @@
 {% extends "layout.html" %}
 {% block content %}
 <form method="POST">
-Theme color:
-{{ form.theme }}
-Branding:
-{{ form.brand }}
-<input type="submit"/>
+<p>This page allows you to configure the theme of the entire website.
+You can choose from a selection of different colors and brands to 
+customize the website to your particular organization and needs.</p>
+<div class="field">
+	<label for="id_theme">Theme color:</label>
+	{{ form.theme.errors }}
+	{{ form.theme }}
+	<p class="help">
+	   {{ form.theme.help_text }}
+    </p>
+</div>
+<div class="field">
+	<label for="id_brand">Branding:</label>
+	{{ form.brand.errors }}
+	{{ form.brand }}
+	<p class="help">
+    	{{ form.brand.help_text }}
+	</p>
+</div>
+<div class="field">
+    <input type="submit"/>
+</div>
 </form>
 {% endblock %}

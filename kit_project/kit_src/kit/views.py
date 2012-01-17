@@ -29,11 +29,22 @@ def edit_config(req):
         form = ConfigForm(req.POST)
         if form.is_valid():
             for param in ['theme', 'brand']:
-                c = Config.objects.get(slug=param)
+                c, _ = Config.objects.get_or_create(slug=param)
                 c.value = form.cleaned_data[param]
                 c.save()
     else:
-        form = ConfigForm()
+        brand = 'unicef'
+        theme = 'cyan'
+        try:
+            theme = Config.objects.get(slug="theme").value
+        except Config.DoesNotExist:
+            pass
+        try:
+            brand = Config.objects.get(slug="brand").value
+        except Config.DoesNotExist:
+            pass
+
+        form = ConfigForm(initial={'brand':brand, 'theme':theme})
 
     return render_to_response('kit/config.html',
                 {'form': form},
