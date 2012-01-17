@@ -1,21 +1,12 @@
 /* vim:set et ts=4 sw=4 */
 
-body {
-    background: #eee url("../images/body-bg.png");
-    font: 9pt "Lucida Grande", "Bitstream Vera Sans", Verdana, sans-serif;
-    line-height: 1;
-    color: #333;
-    padding: 0;
-    margin: 0;
-}
-
 a {
     text-decoration: none;
     color: #33a7d2;
 }
 
-    a:hover {
-        text-decoration: underline; }
+a:hover {
+    text-decoration: underline; }
 
 abbr {
     cursor: help; }
@@ -30,9 +21,6 @@ div.clear-hack {
     clear: both;
     height: 0;
 }
-
-
-
 
 #wrapper {
     width: 80em;
@@ -50,17 +38,6 @@ div.clear-hack {
     * html #wrapper {
         width: 960px; }
 
-
-
-
-/* the header is based roughly upon unicef.org, with rapidsms colors */
-#header {
-    background: url("../images/header-bg.png") repeat-x;
-    padding-top: 23px;
-    padding-bottom: 33px;
-    position: relative;
-    color: #ccf;
-}
 
     /* hide the log in/out links in the top right. this doesn't need to
      * be especially discoverable; when the user tries to do something
@@ -82,28 +59,8 @@ div.clear-hack {
         padding: 0 10px;
     }
 
-    /* align in the middle of the unicef blue stripe of header bg, and
-     * display logo on the right. TODO: extract the unicef branding */
-    #branding h1 {
-        background: url("../images/unicef-logo.png") no-repeat 100% 50%;
-        height: 65px;
-        color: #fff;
-        margin: 0;
-    }
-
         * html #branding h1 {
             width: 940px; }
-
-        #branding h1 a {
-            height: 65px;
-            width: 245px;
-            display: block;
-            background: url("../images/rapidsms-logo.png") no-repeat 0 50%;
-
-            /* float the RapidSMS logo, in case any app would like to
-             * append anything to the light blue (empty) stripe */
-            float: left;
-        }
 
             #branding h1 a span {
                 position: absolute;
@@ -136,21 +93,6 @@ div.clear-hack {
         #tabs li { margin-right: 5px; }
         #page-tabs li { margin-left: 5px; }
 
-            #tabs li a,
-            #page-tabs li a {
-                color: #fff;
-                display: block;
-                padding: 0 1em;
-                background: #2fa5d1 url("../images/tab-bg.png") repeat-x;
-                border-right: 1px solid #11bad0;
-                border-left: 1px solid #11bad0;
-
-                /* disable the focus outline on tabs, to avoid a rather
-                 * ugly dotted box around tabs while they have focus (we
-                 * remain accessible by providing an :focus, later) */
-                outline: none;
-            }
-
             /* there are unread messages in this tab! TODO: is this just
              * for the training app? if so, move it there! */
             #tabs li.unread a span {
@@ -158,39 +100,6 @@ div.clear-hack {
                 padding-right: 21px;
                 background: url("../icons/silk/email_open.png") no-repeat 100% 50%;
             }
-
-            /* always highlight the active (in the navigation sense, not
-             * the css :active sense) tab, even when it's being hovered
-             * or focused, since clicking it again is mostly useless */
-            #tabs li.active a,       #page-tabs li.active a,
-            #tabs li.active a:hover, #page-tabs li.active a:hover,
-            #tabs li.active a:focus, #page-tabs li.active a:focus {
-
-                background: #fff url("../images/tab-bg-active.png") repeat-x;
-                text-decoration: none;
-                text-shadow: none;
-                color: #000;
-
-                /* the same color as the strip in header-bg.png */
-                border: 1px solid #cef1f5;
-                border-bottom: 0;
-
-                /* nudge the active tab north by one pixel, to line it
-                 * up with the tops of the other tabs */
-                margin-top: -1px;
-            }
-
-            /* brighten up inactive tabs when hovering or tab-focusing
-             * with the keyboard (we removed the outline, above) */
-            #tabs li a:hover, #page-tabs li a:hover,
-            #tabs li a:focus, #page-tabs li a:focus {
-                background-image: url("../images/tab-bg-hover.png");
-                text-shadow: #cef1f5 0 0 2px;
-                text-decoration: none;
-            }
-
-
-
 
 #breadcrumbs {
     color: #ccc;
@@ -204,9 +113,6 @@ div.clear-hack {
     #breadcrumbs a {
         color: #000;
     }
-
-
-
 
 #inner {
     padding: 1em;
