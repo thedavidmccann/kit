@@ -1,0 +1,30 @@
+/* vim:set et ts=4 sw=4 */
+
+body {
+    background: #eee url("../../../images/brands/unicef/body-bg.png");
+    font: 9pt "Lucida Grande", "Bitstream Vera Sans", Verdana, sans-serif;
+    line-height: 1;
+    color: #333;
+    padding: 0;
+    margin: 0;
+}
+
+/* align in the middle of the unicef blue stripe of header bg, and
+ * display logo on the right. TODO: extract the unicef branding */
+#branding h1 {
+    background: url("../../../images/brands/unicef/unicef-logo.png") no-repeat 100% 50%;
+    height: 65px;
+    color: #fff;
+    margin: 0;
+}
+
+#branding h1 a {
+    height: 65px;
+    width: 245px;
+    display: block;
+    background: url("../../../images/brands/unicef/rapidsms-logo.png") no-repeat 0 50%;
+
+    /* float the RapidSMS logo, in case any app would like to
+     * append anything to the light blue (empty) stripe */
+    float: left;
+}

@@ -161,6 +161,7 @@ SMS_APPS = [
 RAPIDSMS_TABS = [
     ("xforms", "Indicators"),
     ("polls", "Polls"),
+    ('kit.views.edit_config', "Configuration"),
 ]
 
 AUTHENTICATED_TABS = [

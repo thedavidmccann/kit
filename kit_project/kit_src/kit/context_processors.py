@@ -9,14 +9,18 @@ def skin(request):
     a context processor that adds the main layout stylesheet to the 
     base layout of kit              
     """
-    stylesheet = '/static/kit/stylesheets/themes/cyan/layout.css'
+    theme_stylesheet = '/static/kit/stylesheets/themes/cyan/layout.css'
+    brand_stylesheet = '/static/kit/stylesheets/brands/unicef/layout.css'
     try:
-        c = Config.objects.get(slug='stylesheet')
-        stylesheet = "/static/kit/stylesheets/themes/%s/layout.css" % c.value
+        c = Config.objects.get(slug='theme')
+        theme_stylesheet = "/static/kit/stylesheets/themes/%s/layout.css" % c.value
+        c = Config.objects.get(slug='brand')
+        brand_stylesheet = "/static/kit/stylesheets/brands/%s/layout.css" % c.value
     except Config.DoesNotExist:
         pass
 
     return {
-        "layout_css":stylesheet
+        "theme_css":theme_stylesheet,
+        "brand_css":brand_stylesheet
     }
 
