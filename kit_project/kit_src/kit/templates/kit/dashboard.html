@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="module">
+<h3>Locations</h3>
+<div class="help">
+Locations are used to associate a user's reports or poll responses with a particular administrative boundary, for aggregate
+reporting purposes.
+</div>
+<p>
+	{% ifequal locations.count 0 %}
+	    <img src="/static/rapidsms/icons/silk/exclamation.png"/> You haven't uploaded any locations yet.
+	{% else %}
+	    <img src="/static/rapidsms/icons/silk/accept.png"/> You've uploaded {{ locations.count }} locations.
+	{% endifequal %}
+</p>
+</div>
+
+<div class="module">
+<h3>Users</h3>
+<div class="help">
+Users are people that will be able to interact with the system via SMS: they can receive poll questions,
+and submit SMS indicator reports.
+</div>
+<p>
+	{% ifequal contacts.count 0 %}
+	    <img src="/static/rapidsms/icons/silk/exclamation.png"/> You haven't uploaded any users yet.
+	{% else %}
+	    <img src="/static/rapidsms/icons/silk/accept.png"/> You've uploaded {{ contacts.count }} users.
+	{% endifequal %}
+</p>
+</div>
+
+<div class="module">
+<h3>Indicators</h3>
+<div class="help">
+Indicators are the individual elements of data that will be gathered from the field, via SMS, x-forms or USSD (for example,
+number of cases of Malaria diagnosed at a health facility in the past week).
+</div>
+<p>
+    {% ifequal indicators.count 0 %}
+        <img src="/static/rapidsms/icons/silk/exclamation.png"/> You haven't created any <a href="{% url xforms %}">indicators</a> yet.
+    {% else %}
+        <img src="/static/rapidsms/icons/silk/accept.png"/> You've created {{ indicators.count }} indicators.
+    {% endifequal %}
+</p>
+</div>
+
+{% endblock %}

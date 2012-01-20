@@ -18,8 +18,8 @@ from django.views.decorators.cache import cache_control
 from django.conf import settings
 from django.contrib import messages
 
-from .forms import ConfigForm
-from .models import Config
+from ..forms import ConfigForm
+from ..models import Config
 
 @login_required
 def edit_config(req):

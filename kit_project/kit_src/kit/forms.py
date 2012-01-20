@@ -5,7 +5,7 @@ class ConfigForm(forms.Form):
     theme = forms.ChoiceField(choices=[
                 ('blue', 'Blue'),
                 ('cyan', 'Cyan'),
-                ('grey', 'Grey'),
+                ('gray', 'Gray'),
                 ('green', 'Green'),
                 ('red', 'Red'),
             ], help_text="""

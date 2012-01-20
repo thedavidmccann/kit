@@ -4,7 +4,7 @@ from django.contrib import admin
 #from rapidsms_httprouter.urls import urlpatterns as router_urls
 from rapidsms_xforms.urls import urlpatterns as xform_urls
 from django.views.generic.simple import direct_to_template
-from kit.views import edit_config
+from kit.views import edit_config, dashboard
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     # RapidSMS core URLs
     (r'^account/', include('rapidsms.urls.login_logout')),
-    url(r'^$', 'rapidsms.views.dashboard', name='rapidsms-dashboard'),
+    url(r'^$', dashboard, name='rapidsms-dashboard'),
     url('^accounts/login', 'rapidsms.views.login'),
     url('^accounts/logout', 'rapidsms.views.logout'),
     url('^config/', edit_config),
