@@ -48,7 +48,7 @@ class ExcelContact(models.Model):
     @classmethod
     def process_add_web_login_xls(cls, value, instance):
         if value.strip().lower() == 'yes':
-            password = 'password'
+            password = User.objects.make_random_password()
             u = User.objects.create_user(instance.email, instance.email, password)
             instance.user = u
             instance.save()
