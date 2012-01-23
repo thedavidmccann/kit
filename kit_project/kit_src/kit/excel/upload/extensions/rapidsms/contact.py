@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import Group, User
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
@@ -15,11 +16,23 @@ class ExcelContact(models.Model):
 
     @classmethod
     def process_phone_number_xls(cls, value, instance):
-        # TODO add assign backend properly
         from rapidsms.models import Connection, Backend
 
-        b, _ = Backend.objects.get_or_create(name='yo6700')
-        c, _ = Connection.objects.get_or_create(identity=value.strip(), backend=b)
+        country_code = getattr(settings, 'COUNTRY_CALLING_CODE', '256')
+        backends = getattr(settings, 'BACKEND_PREFIXES', [('', 'yo6700')])
+        number = value
+        if number.startswith('0'):
+            number = '%s%s' % (country_code, number[1:])
+        elif number[:len(country_code)] != country_code:
+            number = '%s%s' % (country_code, number)
+        b = None
+        for prefix, backend in backends:
+            if number[len(country_code):].startswith(prefix):
+                b, _ = Backend.objects.get_or_create(name=backend)
+                break
+
+        number = int(float(value))
+        c, _ = Connection.objects.get_or_create(identity=number, backend=b)
         c.contact = instance
         c.save()
 
