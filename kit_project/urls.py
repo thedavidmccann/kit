@@ -5,6 +5,9 @@ from django.contrib import admin
 from rapidsms_xforms.urls import urlpatterns as xform_urls
 from django.views.generic.simple import direct_to_template
 from kit.views import edit_config, dashboard
+from kit.excel.upload.views import bulk_upload
+from rapidsms.contrib.locations.models import Location
+from rapidsms.models import Contact
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -20,7 +23,9 @@ urlpatterns = patterns('',
     url(r'^$', dashboard, name='rapidsms-dashboard'),
     url('^accounts/login', 'rapidsms.views.login'),
     url('^accounts/logout', 'rapidsms.views.logout'),
-    url('^config/', edit_config),
+    url('^config/$', edit_config),
+    url('^config/locations/$', bulk_upload, {'model':Location, 'template':'/static/kit/spreadsheets/locations_tmpl.xls'}, name='upload-locations'),
+    url('^config/users/$', bulk_upload, {'model':Contact, 'model_name':'User', 'template':'/static/kit/spreadsheets/users_tmpl.xls'}, name='upload-contacts'),
     # RapidSMS contrib app URLs
     (r'^ajax/', include('rapidsms.contrib.ajax.urls')),
     (r'^export/', include('rapidsms.contrib.export.urls')),

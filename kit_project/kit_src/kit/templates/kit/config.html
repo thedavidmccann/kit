@@ -1,4 +1,9 @@
 {% extends "layout.html" %}
+
+{% block title %}
+    Configuration - {{ block.super }}
+{% endblock %}
+
 {% block content %}
 <form method="POST">
 <p>This page allows you to configure the theme of the entire website.

@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ model_name }}s Upload - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="module">
+        <h3>Download Excel Template</h3>
+        <div class="help">
+	        Right click and select "save file as..." to save the upload spreadsheet.  You can then fill it out with as many {{ model_name }}s as
+	        you wish, and then upload it below to add these {{ model_name }}s to the system.
+        </div>
+        <p><a href="{{ template }}">{{ model_name }}s Upload Excel Template</a></p>
+    </div>
+    <div class="module">
+        <h3>Upload {{ model_name }}s Excel File</h3>
+        <div class="help">
+	        Once you've filled out the above spreadsheet with all the {{ model_name }}s you want to
+	        add, browse to the completed spreadsheet here and upload it.
+        </div>
+        <form enctype="multipart/form-data" method="POST">
+			<div class="field">
+			    <label for="id_brand">{{ form.excel_file.label }}:</label>
+			    <div class="field error">
+			        <ul class="errors">
+			            {% for error in form.excel_file.errors %}
+			                <li>{{ error }}</li>
+			            {% endfor %}
+			        {% comment %}{{ form.excel_file.errors }}{% endcomment %}
+			        </ul>
+			    </div>
+			    {{ form.excel_file }}
+			    <p class="help">
+			        {{ form.excel_file.help_text }}
+			    </p>
+			</div>
+			<div class="field">
+			    <input type="submit" value="Update"/>
+			</div>
+        </form>
+	    <p>
+	        {{ message|linebreaks }}
+	    </p>
+    </div>
+{% endblock %}
