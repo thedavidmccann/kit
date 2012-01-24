@@ -10,7 +10,7 @@ from .forms import ExcelUploadForm
 from .utils import handle_excel_file
 
 @login_required
-def bulk_upload(request, model=None, model_name=None, template=None):
+def bulk_upload(request, model=None, model_name=None, template=None, html_template='kit/excel/upload/upload.html'):
     """
     This is a generic view for uploading instances of a particular model
     in bulk.
@@ -76,7 +76,7 @@ def bulk_upload(request, model=None, model_name=None, template=None):
     else:
         form = ExcelUploadForm()
 
-    return render_to_response('kit/excel/upload/upload.html', \
+    return render_to_response(html_template, \
                               {'model_name':model_name, \
                                'form':form, \
                                'template':template, \

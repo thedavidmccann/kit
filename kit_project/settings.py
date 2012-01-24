@@ -63,6 +63,7 @@ INSTALLED_APPS = [
 
     "kit",
     "kit.excel.upload",
+    "kit.excel.export",
 
     "rapidsms",
     "rapidsms.contrib.handlers",
@@ -100,8 +101,6 @@ SMS_APPS = [
 # tabbed navigation. when adding an app to INSTALLED_APPS, you may wish
 # to add it here, also, to expose it in the rapidsms ui.
 RAPIDSMS_TABS = [
-    ("kit-indicators", "Indicators"),
-    ("polls", "Polls"),
     ('kit.views.edit_config', "Configuration"),
 ]
 

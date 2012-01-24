@@ -214,3 +214,15 @@ div.trigger {
    border: none;	
 }
 
+span.help {
+    max-width: 30em;
+    font-size: 80%;
+    color: #aaa;
+
+    margin-top: 0;
+    padding-top: 2px;
+    margin-left: 0.625em;
+    padding-left: 0.3125em;
+    border-left: 0.625em solid #f8f8f8;
+}
+

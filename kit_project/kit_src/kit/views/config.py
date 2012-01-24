@@ -1,25 +1,17 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from django.db import transaction
-from django.db.models import Q, Count
-from django.views.decorators.http import require_GET
-from django.template import RequestContext
-from django.shortcuts import redirect, get_object_or_404, \
-    render_to_response
-from django.http import HttpResponse
-from django.contrib.sites.models import Site
-from django.contrib.auth.decorators import login_required, \
-    permission_required
-from django.utils import simplejson
-from django.utils.safestring import mark_safe
-from django.core.urlresolvers import reverse
-from django.views.decorators.cache import cache_control
-from django.conf import settings
-from django.contrib import messages
-
 from ..forms import ConfigForm
 from ..models import Config
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User, Group
+from django.db import transaction
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from rapidsms.contrib.locations.models import Location
+from rapidsms.models import Contact, Backend, Connection
+from rapidsms_xforms.models import XForm
 
 @login_required
 def edit_config(req):
@@ -49,3 +41,19 @@ def edit_config(req):
     return render_to_response('kit/config.html',
                 {'form': form},
                 context_instance=RequestContext(req))
+
+@login_required
+@transaction.commit_manually
+def reset(req):
+    try:
+        User.objects.exclude(is_staff=True).delete()
+        Group.objects.all().delete()
+        Contact.objects.all().delete()
+        XForm.objects.all().delete()
+        Backend.objects.all().delete()
+        Connection.objects.all().delete()
+        Location.objects.all().delete()
+        transaction.commit()
+        return HttpResponse("The system has been reset", status=200)
+    except:
+        transaction.rollback()

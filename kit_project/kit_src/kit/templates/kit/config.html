@@ -29,4 +29,8 @@ customize the website to your particular organization and needs.</p>
     <input type="submit" value="Update"/>
 </div>
 </form>
+<div style="float:right;margin-top:3em;">
+<a href="javascript:void(0)" onclick="if (confirm('Are you sure you want to delete all users, locations, and indicators?  This will reset the system to its initial demo state.')) { $('#results').load('{% url kit.views.reset %}'); }">Reset System</a>
+<span id="results"></span>
+</div>
 {% endblock %}

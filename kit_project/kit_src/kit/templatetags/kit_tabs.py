@@ -96,9 +96,14 @@ def get_tabs(parser, token):
     from rapidsms.models import Contact
     if Contact.objects.count():
         tabs.append(Tab("kit-users", "Users"))
+        tabs.append(Tab("polls", "Polls"))
 
     from rapidsms.contrib.locations.models import Location
     if Location.objects.count():
         tabs.append(Tab("kit-locations", "Locations"))
+
+    from rapidsms_xforms.models import XForm
+    if XForm.objects.count():
+        tabs.append(Tab("kit-indicators", "Indicators"))
 
     return TabsNode(tabs, str(args[1]))

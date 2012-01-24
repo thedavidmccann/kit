@@ -21,9 +21,16 @@ function deleteLocation(elem, pk, name) {
 
 function editLocation(elem, pk) {
     overlay_loading_panel($(elem).parents('tr'));
-    $(elem).parents('tr').load('../location/' + pk + '/edit/', '', function() {
+    $(elem).parents('tr').load('../location/' + pk + '/view/', '', function() {
         $('#div_panel_loading').hide();
     });
+}
+
+function deleteReport(elem, pk, name) {
+    if (confirm('Are you sure you want to remove ' + name + '?')) {
+        $(elem).parents('tr').remove();
+        $.post('/xforms/' + pk + '/delete/', function(data) {});
+    }
 }
 
 function submitForm(link, action, resultDiv) {

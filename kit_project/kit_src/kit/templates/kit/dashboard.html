@@ -45,9 +45,9 @@
 		</div>
 		<p>
 		    {% ifequal indicators.count 0 %}
-		        <img src="/static/rapidsms/icons/silk/exclamation.png"/> You haven't created any <a href="{% url xforms %}">indicators</a> yet.
+		        <img src="/static/rapidsms/icons/silk/exclamation.png"/> You haven't created any <a href="{% url upload-indicators %}">indicators</a> yet.
 		    {% else %}
-		        <img src="/static/rapidsms/icons/silk/accept.png"/> You've created {{ indicators.count }} indicators.
+		        <img src="/static/rapidsms/icons/silk/accept.png"/> You've created {{ indicators.count }} indicators. <a href="{% url upload-indicators %}">Upload more.</a>
 		    {% endifequal %}
 		</p>
 		</div>

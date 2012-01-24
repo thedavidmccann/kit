@@ -7,7 +7,9 @@ from generic.sorters import SimpleSorter
 from kit.excel.upload.views import bulk_upload
 from contact.forms import AssignGroupForm, MassTextForm
 from contact.urls import urlpatterns as contact_urls
-from kit.views import edit_config, dashboard, edit_reporter, delete_reporter, edit_location, delete_location
+from kit.views import edit_config, reset, dashboard, edit_reporter, delete_reporter, edit_location, delete_location
+from kit.excel.export.views import export_submissions, export_responses
+from kit.models import Report
 from rapidsms.contrib.locations.models import Location
 from rapidsms.models import Contact
 from rapidsms_xforms.models import XForm
@@ -15,21 +17,31 @@ from rapidsms_xforms.urls import urlpatterns as xform_urls
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Example:
-    # (r'^my-project/', include('my_project.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-#    url(r'^users/', include('smartmin.users.urls')),
     (r'^admin/', include(admin.site.urls)),
     # RapidSMS core URLs
     (r'^account/', include('rapidsms.urls.login_logout')),
     url(r'^$', dashboard, name='rapidsms-dashboard'),
     url('^accounts/login', 'rapidsms.views.login'),
     url('^accounts/logout', 'rapidsms.views.logout'),
+
     url('^config/$', edit_config),
-    url('^config/locations/$', bulk_upload, {'model':Location, 'template':'/static/kit/spreadsheets/locations_tmpl.xls'}, name='upload-locations'),
-    url('^config/users/$', bulk_upload, {'model':Contact, 'model_name':'User', 'template':'/static/kit/spreadsheets/users_tmpl.xls'}, name='upload-contacts'),
+    url('^config/reset/$', reset),
+    url('^config/locations/$', bulk_upload, { \
+        'model':Location, \
+        'template':'/static/kit/spreadsheets/locations_tmpl.xls', \
+    }, name='upload-locations'),
+    url('^config/users/$', bulk_upload, { \
+        'model':Contact, \
+        'model_name':'User', \
+        'template':'/static/kit/spreadsheets/users_tmpl.xls', \
+    }, name='upload-contacts'),
+    url('^config/indicators/$', bulk_upload, { \
+        'model':Report, \
+        'model_name':'Report', \
+        'template':'/static/kit/spreadsheets/reports_tmpl.xls', \
+        'html_template':'kit/upload_indicators.html', \
+    }, name='upload-indicators'),
+
     url('^users/$', generic, { \
         'model':Contact, \
         'results_title':'Users', \
@@ -62,7 +74,21 @@ urlpatterns = patterns('',
     url(r'^location/(?P<location_pk>\d+)/delete', delete_location),
     url(r'^location/(?P<pk>\d+)/show', generic_row, {'model':Location, 'partial_row':'kit/partials/locations/locations_row.html'}),
 
-    url('^indicators/$', generic, {'model':XForm}, name="kit-indicators"),
+    url('^indicators/$', generic, { \
+        'model':Report, \
+        'results_title':'Reports', \
+        'base_template':'kit/indicators_base.html',
+        'partial_row':'kit/partials/indicators/indicators_row.html', \
+        'columns':[ \
+            ('Report', True, 'name', SimpleSorter()), \
+            ('Indicators', False, 'fields', None,), \
+            ('SMS Keyword', True, 'keyword', SimpleSorter(),), \
+            ('', False, '', None)],
+    }, name="kit-indicators"),
+    url("^indicators/(?P<xform_pk>\d+)/export/$", export_submissions),
+
+    url("^responses/(?P<poll_pk>\d+)/export/$", export_responses),
+
     # RapidSMS contrib app URLs
     (r'^ajax/', include('rapidsms.contrib.ajax.urls')),
     (r'^export/', include('rapidsms.contrib.export.urls')),
