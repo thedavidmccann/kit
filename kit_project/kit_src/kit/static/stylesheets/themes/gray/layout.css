@@ -60,6 +60,15 @@
     text-decoration: none;
 }
 
+.row_reg td {
+    background-color: #f8f8f8;
+}
+
+.row_alt td {
+    background-color: #d0d0d0;
+}
+
+
 
 
 

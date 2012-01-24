@@ -1,0 +1,31 @@
+<td>&nbsp;</td>
+<td id="row_{{ location.pk }}">{{ location_form.name }}
+    {% if location_form.name.errors %}
+        <br clear="left"/>
+        {{ location_form.name.errors }}
+    {% endif %}
+</td>
+<td>{{ location_form.type }}
+    {% if location_form.type.errors %}
+        <br clear="left"/>
+        {{ location_form.type.errors }}
+    {% endif %}
+</td>
+<td>{{ location_form.tree_parent }}
+    {% if location_form.tree_parent.errors %}
+        <br clear="left"/>
+        {{ location_form.tree_parent.errors }}
+    {% endif %}
+</td>
+<td class="button_col">
+    <div class="buttons">
+        <a href="javascript:void(0)"
+           onclick="$(this).parents('tr').load('../location/{{ location.pk }}/show/')">
+            <img src="{{ MEDIA_URL }}rapidsms/icons/silk/decline.png"/>
+        </a>
+        <a href="javascript:void(0)"
+           onclick="submitForm(this, '../location/{{ location.pk }}/edit/', $(this).parents('tr'))">
+            <img src="{{ MEDIA_URL }}rapidsms/icons/silk/accept.png"/>
+        </a>
+    </div>
+</td>

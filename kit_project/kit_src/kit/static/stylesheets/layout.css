@@ -197,3 +197,20 @@ div.trigger {
         float: right;
         margin: 0;
     }
+    
+    
+.results ul {
+    list-style-type:none;
+    margin:2px;
+    padding:0;
+}
+
+.results li {
+    padding:1px;
+    font-size:6pt;
+}
+
+.button_col img {
+   border: none;	
+}
+

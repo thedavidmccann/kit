@@ -19,3 +19,12 @@
 [submodule "kit_project/rapidsms_auth"]
 	path = kit_project/rapidsms_auth
 	url = git://github.com/unicefuganda/rapidsms-auth
+[submodule "kit_project/rapidsms_contact"]
+	path = kit_project/rapidsms_contact
+	url = git://github.com/unicefuganda/rapidsms-contact
+[submodule "kit_project/rapidsms_uganda_common"]
+	path = kit_project/rapidsms_uganda_common
+	url = git://github.com/unicefuganda/rapidsms-uganda-common
+[submodule "kit_project/rapidsms_script"]
+	path = kit_project/rapidsms_script
+	url = git://github.com/unicefuganda/rapidsms-script

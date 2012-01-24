@@ -1,0 +1,23 @@
+{% extends 'generic/partials/partial_row.html' %}
+{% block remaining_row_content %}
+    <td>
+        {{ object.name }}
+    </td>
+    <td>
+        {{ object.type.name }}
+    </td>
+    <td>
+        {{ object.tree_parent.name }}
+    </td>
+    <td class="button_col">
+        <div class="buttons">
+            <a href="javascript:void(0)" onclick="deleteLocation(this, {{ object.pk }},'{{ object.name }}')">
+                <img src="{{ MEDIA_URL }}rapidsms/icons/silk/delete.png" />
+            </a>
+
+             <a href="javascript:void(0)" onclick="editLocation(this, {{ object.pk }})">
+                <img src="{{ MEDIA_URL }}poll/icons/silk/pencil.png" />
+            </a>
+        </div>
+    </td>
+{% endblock %}

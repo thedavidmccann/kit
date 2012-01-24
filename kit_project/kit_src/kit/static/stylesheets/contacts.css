@@ -1,0 +1,15 @@
+#div_action_0 {
+    position:absolute;
+    top: 3em;
+    left: 0;
+}
+
+#div_action_1 {
+	position:absolute;
+	top: 3em;
+	left: 50%;
+}
+
+#actions {
+    height: 10em;
+}

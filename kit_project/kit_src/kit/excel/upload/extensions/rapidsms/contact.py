@@ -63,6 +63,8 @@ class ExcelContact(models.Model):
         if value.strip().lower() == 'yes':
             password = User.objects.make_random_password()
             u = User.objects.create_user(instance.email, instance.email, password)
+            u.groups.add(instance.groups.all()[0])
+
             instance.user = u
             instance.save()
             send_mail('Your new login at kit.unicefuganda.org', "Your username is this email, your password is %s.\nEnjoy!\nUNICEF Uganda" % password, 'root@uganda.rapidsms.org', [instance.email], fail_silently=True)

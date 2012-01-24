@@ -60,6 +60,13 @@
     text-decoration: none;
 }
 
+.row_reg td {
+    background-color: #f8f8f8;
+}
+
+.row_alt td {
+    background-color: #b2d9de;
+}
 
 
 
