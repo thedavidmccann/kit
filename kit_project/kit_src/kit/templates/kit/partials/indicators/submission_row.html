@@ -1,0 +1,26 @@
+{% extends 'generic/partials/partial_row.html' %}
+{% block remaining_row_content %}
+{% load submission_tags %}
+    <td>{{ object.connection.contact.name }}</td>
+    <td>
+        {{ object.connection.contact.reporting_location.name }} 
+    </td>
+    <td>{{ object.raw }}
+        <ul>
+        {% for v in object|get_submission_values %}
+            <li>
+                {{ v.attribute.description }}: {{ v.value_int }}
+            </li>
+        {% endfor %}
+        </ul>    
+    </td>
+    <td>{{ object.created|date:"m/j/y G:i:s" }}</td>
+    <td>{{ object.approved }}</td>
+    <td>
+        <div class="buttons">
+            <a href="/indicators/submissions/{{ object.pk }}/edit/">
+                <img src="{{ MEDIA_URL }}rapidsms_xforms/icons/silk/pencil.png" alt=""/> Edit
+            </a>
+        </div>
+    </td>
+{% endblock %}

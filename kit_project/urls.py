@@ -7,9 +7,9 @@ from generic.sorters import SimpleSorter
 from kit.excel.upload.views import bulk_upload
 from contact.forms import AssignGroupForm, MassTextForm
 from contact.urls import urlpatterns as contact_urls
-from kit.views import edit_config, reset, dashboard, edit_reporter, delete_reporter, edit_location, delete_location
+from kit.views import edit_config, reset, dashboard, edit_reporter, delete_reporter, edit_location, delete_location, edit_report, view_submissions
 from kit.excel.export.views import export_submissions, export_responses
-from kit.models import Report
+from kit.models import Report, Indicator
 from rapidsms.contrib.locations.models import Location
 from rapidsms.models import Contact
 from rapidsms_xforms.models import XForm
@@ -35,11 +35,16 @@ urlpatterns = patterns('',
         'model_name':'User', \
         'template':'/static/kit/spreadsheets/users_tmpl.xls', \
     }, name='upload-contacts'),
-    url('^config/indicators/$', bulk_upload, { \
+    url('^config/reports/$', bulk_upload, { \
         'model':Report, \
         'model_name':'Report', \
         'template':'/static/kit/spreadsheets/reports_tmpl.xls', \
         'html_template':'kit/upload_indicators.html', \
+    }, name='upload-reports'),
+    url('^config/indicators/$', bulk_upload, { \
+        'model':Indicator, \
+        'model_name':'Indicator', \
+        'template':'/static/kit/spreadsheets/indicators_tmpl.xls', \
     }, name='upload-indicators'),
 
     url('^users/$', generic, { \
@@ -86,6 +91,8 @@ urlpatterns = patterns('',
             ('', False, '', None)],
     }, name="kit-indicators"),
     url("^indicators/(?P<xform_pk>\d+)/export/$", export_submissions),
+    url("^indicators/submissions/(?P<submission_id>\d+)/edit/", edit_report),
+    url("^indicators/(?P<xform_pk>\d+)/view/$", view_submissions),
 
     url("^responses/(?P<poll_pk>\d+)/export/$", export_responses),
 

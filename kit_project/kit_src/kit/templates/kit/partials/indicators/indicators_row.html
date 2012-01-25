@@ -18,13 +18,14 @@
     </td>
     <td class="button_col">
         <div class="buttons">
+            <a href="{% url kit.excel.export.views.export_submissions object.pk %}">Download submissions ({{ object.submissions.count }})</a> | 
+            <a href="{% url kit.views.view_submissions object.pk %}">View/Edit submissions</a>
             <a href="javascript:void(0)" onclick="deleteReport(this, {{ object.pk }},'{{ object.name }}')">
                 <img src="{{ MEDIA_URL }}rapidsms/icons/silk/delete.png" />
             </a>
             <a href="{% url rapidsms_xforms.views.view_form object.pk %}">
                 <img src="{{ MEDIA_URL }}poll/icons/silk/pencil.png" />
             </a>
-            <a href="{% url kit.excel.export.views.export_submissions object.pk %}">Download submissions ({{ object.submissions.count }})</a>
         </div>
     </td>
 {% endblock %}

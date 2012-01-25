@@ -10,12 +10,13 @@ from xlrd import open_workbook
 def parse_header_row(worksheet, model):
     """
     This method parses the top row of the spreadsheet for column names,
-    introspecting the model for attributes, parse_attribute_xls() and 
-    process_attribute_xls() methods, loading them into a list of typedefs per column.
+    introspecting the model for attributes, parse_attribute_xls(),
+    map_column_xls() and process_attribute_xls() methods, loading 
+    them into a list of typedefs per column.
     
     Each element in the list will contain a typedef dictionary:
     
-    {'attribute_name':<attribute>,
+    {'attribute_name':<attribute>, # may or may not correspond directly to the column
      'has_attribute':True or False,
      'parse_method':bound method of model or None
      'process_method':None if 'has_attribute' is True, otherwise bound method of model
@@ -31,10 +32,28 @@ def parse_header_row(worksheet, model):
     for col in range(worksheet.ncols):
         attribute = str(worksheet.cell(0, col).value).strip().lower().replace(" ", "_")
         if attribute:
+            print attribute
             typedef = {'attribute_name':attribute, \
                        'has_attribute':False, \
                        'parse_method':None, \
                        'process_method':None}
+
+            # look for map_column_xls()
+            map_method = "map_%s_xls" % attribute
+
+            # look for the attribute itself
+            if attribute in dir(sample_instance):
+                typedef['has_attribute'] = True
+
+            # if it isn't there, look for a mapping from the
+            # column name to an attribute that exists on the model
+            elif hasattr(model, map_method):
+                map_method = getattr(model, map_method)
+                attribute_name = map_method()
+                if attribute_name in dir(sample_instance):
+                    typedef['attribute_name'] = attribute_name
+                    typedef['has_attribute'] = True
+                    attribute = attribute_name
 
             # look for parse_attribute_xls()
             parse_method = "parse_%s_xls" % attribute
@@ -44,9 +63,6 @@ def parse_header_row(worksheet, model):
 
             if hasattr(model, parse_method):
                 typedef['parse_method'] = getattr(model, parse_method)
-
-            if attribute in dir(sample_instance):
-                typedef['has_attribute'] = True
 
             if hasattr(model, process_method):
                 typedef['process_method'] = getattr(model, process_method)
@@ -107,6 +123,7 @@ def handle_excel_file(file, model, form):
                 # defer these calls to the second pass
                 continue
 
+        print create_kwargs
         instance = model.objects.create(**create_kwargs)
 
         # second pass: call process_method() on all columns

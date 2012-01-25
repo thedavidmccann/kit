@@ -48,6 +48,14 @@ def bulk_upload(request, model=None, model_name=None, template=None, html_templa
     corresponding to this cell's contents (or throw a ValidationError).  If no such method
     is found, the view will attempt to coerce the cell contents directly.
     
+    Another possibility is that a column name will need to be "friendly," but will
+    actually map to an attribute with a more technical-sounding name 
+    ('slug' being a great example of a not-user-friendly attribute!).  This view
+    will also search for a method called map_<column>_xls(), which should return
+    the name of the attribute this column should map to (as a string).  The view
+    will then coerce the value from this column to the appropriate attribute, calling
+    the parse method or coercing it directly.
+    
     Finally, some spreadsheets may actually involve the creation of two models that
     may not be directly linked to the root model in a straightforward way.  In this 
     case, if neither a parse_<attribute>_xls method nor the attribute itself are

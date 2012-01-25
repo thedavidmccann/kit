@@ -15,7 +15,7 @@
 		{% ifequal locations.count 0 %}
 		    <img src="/static/rapidsms/icons/silk/exclamation.png"/> You haven't uploaded any <a href="{% url upload-locations %}">locations</a> yet.
 		{% else %}
-		    <img src="/static/rapidsms/icons/silk/accept.png"/> You've uploaded {{ locations.count }} locations. <a href="{% url upload-locations %}">Upload more.</a> 
+		    <img src="/static/rapidsms/icons/silk/accept.png"/> You've uploaded {{ locations.count }} location{{ locations.count|pluralize }}. <a href="{% url upload-locations %}">Upload more.</a> 
 		{% endifequal %}
 	</p>
 	</div>
@@ -31,12 +31,29 @@
 		{% ifequal contacts.count 0 %}
 		    <img src="/static/rapidsms/icons/silk/exclamation.png"/> You haven't uploaded any <a href="{% url upload-contacts %}">users</a> yet.
 		{% else %}
-		    <img src="/static/rapidsms/icons/silk/accept.png"/> You've uploaded {{ contacts.count }} users. <a href="{% url upload-contacts %}">Upload more.</a>
+		    <img src="/static/rapidsms/icons/silk/accept.png"/> You've uploaded {{ contacts.count }} user{{ contacts.count|pluralize }}. <a href="{% url upload-contacts %}">Upload more.</a>
 		{% endifequal %}
 	</p>
 	</div>
+
+    {% if contacts.count > 0 %}
+        <div class="module">
+        <h3>Reports</h3>
+        <div class="help">
+        Reports are SMS messages that will contain one or more indicators.  They are the way in which you bundle several related
+        indicators into a single, efficient SMS message.
+        </div>
+        <p>
+            {% ifequal reports.count 0 %}
+                <img src="/static/rapidsms/icons/silk/exclamation.png"/> You haven't created any <a href="{% url upload-reports %}">reports</a> yet.
+            {% else %}
+                <img src="/static/rapidsms/icons/silk/accept.png"/> You've created {{ reports.count }} report{{ reports.count|pluralize }}. <a href="{% url upload-reports %}">Upload more.</a>
+            {% endifequal %}
+        </p>
+        </div>
+    {% endif %}
 	
-	{% if contacts.count > 0 %}
+	{% if reports.count > 0 %}
 		<div class="module">
 		<h3>Indicators</h3>
 		<div class="help">
@@ -47,7 +64,7 @@
 		    {% ifequal indicators.count 0 %}
 		        <img src="/static/rapidsms/icons/silk/exclamation.png"/> You haven't created any <a href="{% url upload-indicators %}">indicators</a> yet.
 		    {% else %}
-		        <img src="/static/rapidsms/icons/silk/accept.png"/> You've created {{ indicators.count }} indicators. <a href="{% url upload-indicators %}">Upload more.</a>
+		        <img src="/static/rapidsms/icons/silk/accept.png"/> You've created {{ indicators.count }} indicator{{ indicators.count|pluralize }}. <a href="{% url upload-indicators %}">Upload more.</a>
 		    {% endifequal %}
 		</p>
 		</div>
