@@ -14,6 +14,7 @@ from rapidsms.contrib.locations.models import Location
 from rapidsms.models import Contact
 from rapidsms_xforms.models import XForm
 from rapidsms_xforms.urls import urlpatterns as xform_urls
+from rapidsms_httprouter.urls import urlpatterns as router_urls
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -108,7 +109,7 @@ urlpatterns = patterns('',
     (r'^messaging/', include('rapidsms.contrib.messaging.urls')),
     (r'^scheduler/', include('rapidsms.contrib.scheduler.urls')),
     (r'^polls/', include('poll.urls')),
-) + xform_urls + contact_urls
+) + xform_urls + contact_urls + router_urls
 
 if settings.DEBUG:
     urlpatterns += patterns('',
