@@ -104,6 +104,6 @@ def get_tabs(parser, token):
 
     from rapidsms_xforms.models import XForm
     if XForm.objects.count():
-        tabs.append(Tab("kit-indicators", "Indicators"))
+        tabs.append(Tab("kit-indicators", "Reports"))
 
     return TabsNode(tabs, str(args[1]))
