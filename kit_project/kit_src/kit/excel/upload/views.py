@@ -1,16 +1,21 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseServerError
-
 from .forms import ExcelUploadForm
 from .utils import handle_excel_file
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseServerError
+from django.shortcuts import render_to_response, redirect
+from django.template import RequestContext
+
 
 @login_required
-def bulk_upload(request, model=None, model_name=None, template=None, html_template='kit/excel/upload/upload.html'):
+def bulk_upload(request, \
+                model=None, \
+                model_name=None, \
+                template=None, \
+                html_template='kit/excel/upload/upload.html', \
+                redirect_url=None):
     """
     This is a generic view for uploading instances of a particular model
     in bulk.
@@ -79,7 +84,9 @@ def bulk_upload(request, model=None, model_name=None, template=None, html_templa
     if request.method == 'POST':
         form = ExcelUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_excel_file(request.FILES['excel_file'], model, form)
+            if handle_excel_file(request.FILES['excel_file'], model, form):
+                if redirect_url:
+                    return redirect(redirect_url)
 
     else:
         form = ExcelUploadForm()

@@ -91,15 +91,16 @@ def handle_excel_file(file, model, form):
     except:
         form.errors.setdefault('excel_file', ErrorList())
         form.errors['excel_file'].append("Please upload a valid excel file.")
-        return
+        return False
 
     try:
         attribute_typedef = parse_header_row(worksheet, model)
     except ValidationError, v:
         form.errors.setdefault('excel_file', ErrorList())
         form.errors['excel_file'].append(v.messages[0])
-        return
+        return False
 
+    clean_upload = True
     for row in range(1, worksheet.nrows):
 
         # this will be passed to model.objects.create()
@@ -114,6 +115,7 @@ def handle_excel_file(file, model, form):
                 try:
                     create_kwargs[attribute] = typedef['parse_method'](value)
                 except ValidationError, v:
+                    clean_upload = False
                     form.errors.setdefault('excel_file', ErrorList())
                     form.errors['excel_file'].append("There was an error with row %d, column %s: %s" % (row, attribute, v.messages[0]))
                     continue
@@ -123,7 +125,6 @@ def handle_excel_file(file, model, form):
                 # defer these calls to the second pass
                 continue
 
-        print create_kwargs
         instance = model.objects.create(**create_kwargs)
 
         # second pass: call process_method() on all columns
@@ -141,5 +142,8 @@ def handle_excel_file(file, model, form):
                 try:
                     typedef['process_method'](value, instance)
                 except ValidationError, v:
+                    clean_upload = False
                     form.errors.setdefault('excel_file', ErrorList())
                     form.errors['excel_file'].append("There was an error with row %d, column %s: %s" % (row, attribute, v.messages[0]))
+
+    return clean_upload

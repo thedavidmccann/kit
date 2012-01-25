@@ -29,22 +29,26 @@ urlpatterns = patterns('',
     url('^config/locations/$', bulk_upload, { \
         'model':Location, \
         'template':'/static/kit/spreadsheets/locations_tmpl.xls', \
+        'redirect_url':'/', \
     }, name='upload-locations'),
     url('^config/users/$', bulk_upload, { \
         'model':Contact, \
         'model_name':'User', \
         'template':'/static/kit/spreadsheets/users_tmpl.xls', \
+        'redirect_url':'/', \
     }, name='upload-contacts'),
     url('^config/reports/$', bulk_upload, { \
         'model':Report, \
         'model_name':'Report', \
         'template':'/static/kit/spreadsheets/reports_tmpl.xls', \
         'html_template':'kit/upload_indicators.html', \
+        'redirect_url':'/', \
     }, name='upload-reports'),
     url('^config/indicators/$', bulk_upload, { \
         'model':Indicator, \
         'model_name':'Indicator', \
         'template':'/static/kit/spreadsheets/indicators_tmpl.xls', \
+        'redirect_url':'/', \
     }, name='upload-indicators'),
 
     url('^users/$', generic, { \
