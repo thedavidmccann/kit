@@ -1,0 +1,31 @@
+{% extends 'generic/partials/partial_row.html' %}
+{% block remaining_row_content %}
+    <td>
+        {{ object.name }}
+        <span class="help">{{ object.description }}</span>
+    </td>
+    <td>
+        <ul>
+            {% for field in object.fields.all %}
+                <li>
+                    {{ field.name }} <span class="help">{{ field.description }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </td>
+    <td>
+        {{ object.keyword }}
+    </td>
+    <td class="button_col">
+        <div class="buttons">
+            <a href="{% url kit.excel.export.views.export_submissions object.pk %}">Download submissions ({{ object.submissions.count }})</a> | 
+            <a href="{% url kit.views.view_submissions object.pk %}">View/Edit submissions</a>
+            <a href="javascript:void(0)" onclick="deleteReport(this, {{ object.pk }},'{{ object.name }}')">
+                <img src="{{ MEDIA_URL }}rapidsms/icons/silk/delete.png" />
+            </a>
+            <a href="{% url rapidsms_xforms.views.view_form object.pk %}">
+                <img src="{{ MEDIA_URL }}poll/icons/silk/pencil.png" />
+            </a>
+        </div>
+    </td>
+{% endblock %}

@@ -50,6 +50,9 @@ INSTALLED_BACKENDS = {
     },
 }
 
+XFORMS_AUTHENTICATION_CHECKUP = 'kit.util.check_user_xform_perms'
+XFORMS_USER_LOOKUP = 'kit.util.get_user_from_connection'
+
 # to help you get started quickly, many django/rapidsms apps are enabled
 # by default. you may wish to remove some and/or add your own.
 INSTALLED_APPS = [

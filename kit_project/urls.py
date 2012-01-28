@@ -10,6 +10,7 @@ from contact.urls import urlpatterns as contact_urls
 from kit.views import edit_config, reset, dashboard, edit_reporter, delete_reporter, edit_location, delete_location, edit_report, view_submissions
 from kit.excel.export.views import export_submissions, export_responses
 from kit.models import Report, Indicator
+from kit.util import get_xform_list, get_xformfield_list
 from rapidsms.contrib.locations.models import Location
 from rapidsms.models import Contact
 from rapidsms_xforms.models import XForm
@@ -84,22 +85,37 @@ urlpatterns = patterns('',
     url(r'^location/(?P<location_pk>\d+)/delete', delete_location),
     url(r'^location/(?P<pk>\d+)/show', generic_row, {'model':Location, 'partial_row':'kit/partials/locations/locations_row.html'}),
 
-    url('^indicators/$', generic, { \
+    url('^reports/$', generic, { \
         'model':Report, \
+        'queryset': get_xform_list, \
         'results_title':'Reports', \
-        'base_template':'kit/indicators_base.html',
-        'partial_row':'kit/partials/indicators/indicators_row.html', \
+        'base_template':'kit/reports_base.html',
+        'partial_row':'kit/partials/reports/reports_row.html', \
         'columns':[ \
             ('Report', True, 'name', SimpleSorter()), \
             ('Indicators', False, 'fields', None,), \
             ('SMS Keyword', True, 'keyword', SimpleSorter(),), \
             ('', False, '', None)],
-    }, name="kit-indicators"),
-    url("^indicators/(?P<xform_pk>\d+)/export/$", export_submissions),
-    url("^indicators/submissions/(?P<submission_id>\d+)/edit/", edit_report),
-    url("^indicators/(?P<xform_pk>\d+)/view/$", view_submissions),
+    }, name="kit-reports"),
+    url("^reports/(?P<xform_pk>\d+)/export/$", export_submissions),
+    url("^reports/submissions/(?P<submission_id>\d+)/edit/", edit_report),
+    url("^reports/(?P<xform_pk>\d+)/view/$", view_submissions),
 
     url("^responses/(?P<poll_pk>\d+)/export/$", export_responses),
+
+    url('^indicators/$', generic, { \
+        'model':Indicator, \
+        'queryset': get_xformfield_list, \
+        'results_title':'Active Indicators', \
+        'base_template':'kit/indicators_base.html',
+        'partial_row':'kit/partials/indicators/indicators_row.html', \
+        'selectable':False, \
+        'columns':[ \
+            ('Report', True, 'xform__name', SimpleSorter()), \
+            ('Name', True, 'name', SimpleSorter()), \
+            ('Type', False, 'type', None,), \
+            ('SMS Keyword', True, 'command', SimpleSorter(),), ],
+    }, name="kit-indicators"),
 
     # RapidSMS contrib app URLs
     (r'^ajax/', include('rapidsms.contrib.ajax.urls')),

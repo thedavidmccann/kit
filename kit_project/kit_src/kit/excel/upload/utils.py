@@ -1,9 +1,6 @@
-from django.core.files import File
 from django.core.exceptions import ValidationError
 from django.db.transaction import commit_on_success
 from django.forms.util import ErrorList
-
-from poll.models import STARTSWITH_PATTERN_TEMPLATE
 
 from xlrd import open_workbook
 
