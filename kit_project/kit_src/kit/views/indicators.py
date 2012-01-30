@@ -22,7 +22,7 @@ def view_submissions(request, xform_pk):
         queryset=xform.submissions.all().order_by('-created'), \
         objects_per_page=25, \
         base_template='kit/submissions_base.html', \
-        partial_row='kit/partials/indicators/submission_row.html', \
+        partial_row='kit/partials/reports/submission_row.html', \
         results_title='Last Reporting Period Results', \
         columns=[('Reporter', True, 'message__connection__contact__name', SimpleSorter(),), \
                  ('Location', True, 'message__connection__contact__reporting_location__name', SimpleSorter(),), \
