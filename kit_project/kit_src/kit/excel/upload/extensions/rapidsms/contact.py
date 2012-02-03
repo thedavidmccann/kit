@@ -21,7 +21,6 @@ class ExcelContact(models.Model):
         country_code = getattr(settings, 'COUNTRY_CALLING_CODE', '256')
         backends = getattr(settings, 'BACKEND_PREFIXES', [('', 'yo6700')])
         number = value
-        import pdb;pdb.set_trace()
         if number.startswith('0'):
             number = '%s%s' % (country_code, number[1:])
         elif number[:len(country_code)] != country_code:
