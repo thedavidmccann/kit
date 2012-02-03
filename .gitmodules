@@ -12,7 +12,7 @@
 	url = git://github.com/unicefuganda/rapidsms-httprouter
 [submodule "kit_project/rapidsms_polls"]
 	path = kit_project/rapidsms_polls
-	url = git://github.com/unicefuganda/rapidsms-polls
+	url = git://github.com/daveycrockett/rapidsms-polls
 [submodule "kit_project/rapidsms_xforms_src"]
 	path = kit_project/rapidsms_xforms_src
 	url = git://github.com/daveycrockett/rapidsms-xforms
