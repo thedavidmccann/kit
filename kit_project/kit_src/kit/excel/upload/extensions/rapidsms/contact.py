@@ -21,6 +21,7 @@ class ExcelContact(models.Model):
         country_code = getattr(settings, 'COUNTRY_CALLING_CODE', '256')
         backends = getattr(settings, 'BACKEND_PREFIXES', [('', 'yo6700')])
         number = value
+        import pdb;pdb.set_trace()
         if number.startswith('0'):
             number = '%s%s' % (country_code, number[1:])
         elif number[:len(country_code)] != country_code:
@@ -31,7 +32,7 @@ class ExcelContact(models.Model):
                 b, _ = Backend.objects.get_or_create(name=backend)
                 break
 
-        number = int(float(value))
+        number = int(float(number))
         c, _ = Connection.objects.get_or_create(identity=number, backend=b)
         c.contact = instance
         c.save()
